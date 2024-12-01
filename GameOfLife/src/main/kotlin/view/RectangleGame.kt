@@ -21,6 +21,7 @@ class RectangleGame(private val born: List<Int>, private val survive: List<Int>)
 
     private val gameOfLife = GameOfLife(born, survive, 75, 75)
     private val gridPane = GridPane()
+    private var hasStarted = false
     private lateinit var timeline: Timeline
     private var simulationSpeed: Double = 500.0
 
@@ -53,10 +54,21 @@ class RectangleGame(private val born: List<Int>, private val survive: List<Int>)
         val randomizeButton = Button("Randomize")
         val toggleFadingButton = Button("Toggle Fading")
 
+        startButton.isDisable = false
+        stopButton.isDisable = true
+
         buttonBox.children.addAll(startButton, stopButton, speedUpButton, slowDownButton, resetButton, randomizeButton, toggleFadingButton)
 
-        startButton.setOnAction { startSimulation() }
-        stopButton.setOnAction { stopSimulation() }
+        startButton.setOnAction {
+            startSimulation()
+            startButton.isDisable = true
+            stopButton.isDisable = false
+        }
+        stopButton.setOnAction {
+            stopSimulation()
+            stopButton.isDisable = true
+            startButton.isDisable = false
+        }
         speedUpButton.setOnAction { speedUpSimulation() }
         slowDownButton.setOnAction { slowDownSimulation() }
         resetButton.setOnAction { gameOfLife.resetSimulation() }
@@ -87,18 +99,18 @@ class RectangleGame(private val born: List<Int>, private val survive: List<Int>)
     }
 
     private fun startSimulation() {
-        timeline = Timeline(
-            KeyFrame(Duration.millis(simulationSpeed), {
-                gameOfLife.simulateGeneration()
-                refreshGrid()
-            })
-        )
-        timeline.cycleCount = Timeline.INDEFINITE
-        timeline.play()
+            timeline = Timeline(
+                KeyFrame(Duration.millis(simulationSpeed), {
+                    gameOfLife.simulateGeneration()
+                    refreshGrid()
+                })
+            )
+            timeline.cycleCount = Timeline.INDEFINITE
+            timeline.play()
     }
 
     private fun stopSimulation() {
-        timeline.stop()
+            timeline.stop()
     }
 
     private fun speedUpSimulation() {

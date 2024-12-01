@@ -17,7 +17,7 @@ tasks.test {
 }
 
 kotlin {
-    jvmToolchain(20)
+    jvmToolchain(21)
 }
 
 javafx {
@@ -25,4 +25,4 @@ javafx {
     modules = listOf("javafx.controls", "javafx.fxml")
 }
 
-application.mainClass = "com.example.MainKt"
+application.mainClass = "view.StartMenu"

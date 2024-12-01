@@ -1,5 +1,5 @@
-# javafx-game-starter-jdk21
+# Conway's Game of Life
 
-Basic JavaFX starter project that draws graphics on a canvas, based on JDK 21.
+Game of Life implemented kotlin using javafx, based on JDK 21.
 
 Run the application with `./gradlew run`.
